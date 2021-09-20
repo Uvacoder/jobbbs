@@ -1,6 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
 .header {
   width: 100%;
   height: 10rem;
   background-image: url(../images/bg-header-desktop.svg);
   background-color: var(--primary-color);
+  font-family: 'Fugaz One', cursive;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8em;
 }

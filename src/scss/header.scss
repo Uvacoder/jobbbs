@@ -1,3 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+*, *:before, *:after {
+  box-sizing: border-box;
+  position: relative;
+}
+
+:root {
+  --color-border: #EAECED;
+  --border-radius: .5rem;
+}
+
+body, html, #app {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #E8EAEF;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #383C4A;
+}
+.searchbar-container {
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+}
+.searchbar {
+  z-index: 100;
+  font-size: 5vmin;
+  box-shadow: 0 .5rem 1rem rgba(black, 0.1);
+  border-radius: var(--border-radius);
+  margin-top: 10vh;
+  margin-bottom: 8vh;
+  display: flex;
+  width: 70vw;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  padding: .75em;
+  flex: 1;
+  background-color: #F7F9FB;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+
+  &:focus-within {
+    box-shadow: 0 0 3px #92A4DE; 
+  }
+
+  > svg {
+    width: 1em;
+    height: 1em;
+    margin-right: .5em;
+    stroke: #9297A8;
+  }
+}
+
+.search-input {
+  appearance: none;
+  border: none;
+  background: transparent;
+  flex: 1;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1em;
+  letter-spacing: 0.04em;
+  /* Because we're using focus-within above. Probably needs @supports */
+  &:focus { outline: none; }
+
+}
+
+.results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  max-height: 50vh;
+  width: 100%;
+  z-index: -1;
+  font-size: 0.6em;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+
+  margin: 0 0;
+  padding: 0;
+  list-style-type: none;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: calc(var(--border-radius) * -1);
+    left: 0;
+    width: 100%;
+    background-color: #F7F9FB;
+
+    height: calc(
+      (var(--height,0) * 1px)
+      + var(--border-radius)
+    );
+    transition: height .5s;
+    border-radius: inherit;
+  }
+}
+
+
+.result-item {
+  margin: 0.25rem .5em;
+  padding: .5em .6em;
+  list-style-type: none;
+  border-radius: .5rem;
+  animation: pop-in .3s backwards;
+  animation-delay: calc( var(--i) * 0.08s );
+  background-color: transparent;
+  transition: all .1s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  color: #333;
+  cursor: pointer;
+
+  // &:before {
+  //   content: 'dog';
+  //   text-transform: uppercase;
+  //   font-size: .5rem;
+  //   font-weight: bold;
+  //   background: #6D7386;
+  //   color: white;
+  //   border-radius: .25em;
+  //   margin-right: .5rem;
+  //   display: inline-block;
+  //   padding: 0.25em;
+  // }
+
+  &:hover {
+    background-color: #EDEFF2;
+  }
+
+  // transform: translateY( 
+  //   calc(
+  //     (var(--dy, 0)) * 1px 
+  //   )
+  // );
+  // transition: transform .3s linear;
+
+  @keyframes pop-in {
+    from { transform: scale(0.8); opacity: 0; }
+  }
+}
 .header-container {
   display: flex;
   flex-direction: column;
