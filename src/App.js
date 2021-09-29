@@ -1,12 +1,14 @@
 import data from "./data.json";
 import Jobs from "./components/Jobs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Search from "./components/Search";
-import { flatten, union } from "lodash";
-const dataSets  = union(flatten(data.map(obj=>[...obj.languages,...obj.tools,obj.position,obj.role])))
+import {fetchData} from "./api-services/api"
 function App() {
   const [filterKeywords, setfilterKeywords] = useState([]);
+  const [jobList, setJobList] = useState([
+  
+])
 
   const setSearchKeyword = (data) => {
     setfilterKeywords([...filterKeywords, data]);
@@ -27,15 +29,22 @@ function App() {
   const clearAll = () => {
     setfilterKeywords([]);
   };
-
-  return (
+ useEffect(()=>{
+    fetchData().then(res=>{
+      console.log(res)
+      setJobList(res)
+    })
+ },[])
+  return (jobList.length===0?<div style={{height:'100vh',width:'100%',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column'}}>loading</div>:
     <div>
       <div className="header">
-        Jobbbs.com
+       <h1>Professio.id</h1> 
+        <small>The magic word here!</small>
+        
       </div>
-
-      <Search setSearchKeyword={setSearchKeyword} />
-
+      <div className="container">
+        <Search data={jobList} setSearchKeyword={setSearchKeyword} />
+      </div>
       {filterKeywords.length > 0 && (
         <Header
           keywords={filterKeywords}
@@ -46,7 +55,7 @@ function App() {
 
       <Jobs
         keywords={filterKeywords}
-        data={data}
+        data={jobList}
         setKeywords={addFilterKeywords}
       />
     </div>

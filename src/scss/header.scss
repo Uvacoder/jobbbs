@@ -6,7 +6,7 @@
 
 :root {
   --color-border: #EAECED;
-  --border-radius: .5rem;
+  --border-radius: 1.4rem;
 }
 
 body, html, #app {
@@ -23,10 +23,20 @@ body, html, #app {
   align-items: center;
   color: #383C4A;
 }
+.container{
+  height: 34vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .searchbar-container {
  display: flex;
+ position: absolute;
+ top: 0;
  align-items: center;
  flex-direction: column;
+ z-index: 999;
 }
 .searchbar {
   z-index: 100;

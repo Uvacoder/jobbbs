@@ -1,7 +1,6 @@
 import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
 import { flatten, union } from "lodash";
-import data from "../data.json";
-const dataSets  = union(flatten(data.map(obj=>[...obj.languages,...obj.tools,obj.position,obj.role])))
+
 
 const SearchInput=({ query, onChange })=> {
   return (
@@ -108,9 +107,10 @@ function Results({ data = [], onSelect }) {
   );
 }
 
-const Search = ({setSearchKeyword}) => {
+const Search = ({data, setSearchKeyword}) => {
   const [query, setQuery] = useState("");
-  
+  const dataSets  = union(flatten(data.map(obj=>[...obj.skill_tags,obj.position,obj.role,obj.level])))
+  console.log(dataSets)
   const results =
     query.length < 2
       ? []

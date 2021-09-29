@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Job from "./Job";
 
 const Jobs = ({ data, setKeywords, keywords }) => {
-  console.log(data);
   const [filteredData, setfilteredData] = useState([]);
 
   // const SearchFunc = () => {
@@ -24,8 +23,7 @@ const Jobs = ({ data, setKeywords, keywords }) => {
             d.role === key ||
             d.position === key ||
             d.level === key ||
-            d.languages.includes(key) ||
-            d.tools.includes(key)
+            d.skill_tags.includes(key) 
           );
         });
       });
@@ -43,7 +41,7 @@ const Jobs = ({ data, setKeywords, keywords }) => {
   return (
     <div className="jobs">
       {filteredData.map((d) => {
-        return <Job key={d.id} data={d} setkeywords={setKeywords} />;
+        return <Job key={d.no} data={d} setkeywords={setKeywords} />;
       })}
     </div>
   );

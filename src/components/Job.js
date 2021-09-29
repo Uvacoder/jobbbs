@@ -1,40 +1,47 @@
 import React, { useEffect, useState } from "react";
+import {timeFromNow} from "../functions"
 
 const Job = (props) => {
   const {
     company,
     contract,
-    featured,
-    id,
-    languages,
+    no,
     level,
     location,
-    logo,
-
+    company_logo,
     position,
-    postedAt,
+    posted_at,
     role,
-    tools,
+    skill_tags,
+    verified
+  
   } = props.data;
+  console.log(skill_tags)
 
-  let keywords = [role, level, ...languages, ...tools];
+  let keywords = [role, level, ...skill_tags];
 
   const [icon, setIcon] = useState("");
 
   const importSvgs = () => {
-    const logoSvg = import(`${logo}`).then((d) => {
-      setIcon(d.default);
-    });
+    if(!!company_logo){
+      setIcon(company_logo);
+    }else{
+      const logoSvg = import(`./images/myhome.svg`).then((d) => {
+        setIcon(d.default);
+      });
+    }
+    
   };
 
   useEffect(() => {
     importSvgs();
-  }, [logo]);
+  }, [company_logo]);
 
   return (
     <div
       className={
-        featured ? "job-container job-container--borderLeft" : "job-container"
+        // featured ? "job-container job-container--borderLeft" : 
+        "job-container"
       }
     >
       <div className="logo">
@@ -43,14 +50,15 @@ const Job = (props) => {
       <div className="part1">
         <div className="company">
           <span className="cname">{company}</span>
+          {props.data.verified && <span className="verified">verified</span>}
           {props.data.new && <span className="new">new!</span>}
-          {props.data.featured && <span className="featured">featured</span>}
+          {/* {props.data.featured && <span className="featured">featured</span>} */}
         </div>
 
         <div className="position">{position}</div>
 
         <div className="details">
-          <span>{postedAt}</span>
+          <span>{timeFromNow(posted_at)}</span>
           <span>&nbsp;•&nbsp;</span>
           <span>{contract}</span>
           <span>&nbsp;•&nbsp;</span>
